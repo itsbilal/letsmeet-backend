@@ -24,7 +24,7 @@ module.exports = function(app) {
 			return;
 		}
 
-		Meetup.findById(req.param.id, function(err, meeting){
+		Meetup.findById(req.params.id, function(err, meeting){
 			if (!meeting) {
 				res.status(404).send();
 				return;
@@ -85,7 +85,7 @@ module.exports = function(app) {
 					// Inform the sender
 					User.findOne({username: meeting.senderId}, function(err, sender){
 						if (err || !sender) {
-							res.status(500).send();
+							console.log(err);
 							return;
 						}
 
