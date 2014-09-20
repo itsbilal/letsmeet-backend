@@ -11,6 +11,7 @@ require("./models");
 
 // Middleware
 //app.use("/static", express.static(__dirname + "/static"));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(require("./middlewares/auth.js"));
 
