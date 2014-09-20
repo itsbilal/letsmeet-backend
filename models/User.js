@@ -2,6 +2,7 @@
 var mongoose = require("mongoose");
 var schema = {
 	username: String,
+	//accessToken: String,
 	facebookId: Number,
 
 	devices: [ String ],

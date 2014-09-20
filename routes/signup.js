@@ -5,7 +5,7 @@ var User = mongoose.model("User");
 module.exports = function(app){
 	app.post("/signup", function(req, res){
 
-		if (!req.body.username) {
+		if (!req.body.username || !req.body.token) {
 			res.status(400).send({error: "Bad request"});
 			return;
 		}
@@ -14,6 +14,7 @@ module.exports = function(app){
 			if (!user) {
 				var user = new User();
 				user.username = req.body.username;
+				//user.accessToken = req.body.token;
 
 				user.save(function(err){
 					if (!err) {
@@ -21,6 +22,9 @@ module.exports = function(app){
 					}
 				});
 			} else {
+				// Update access token
+				//user.accessToken = req.body.token;
+				//user.save();
 				res.send({success: 1});
 				return;
 			}
