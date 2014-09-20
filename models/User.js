@@ -4,6 +4,8 @@ var schema = {
 	username: String,
 	facebookId: Number,
 
+	devices: [ String ],
+
 	joined: Date
 };
 
