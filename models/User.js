@@ -7,7 +7,7 @@ var schema = {
 
 	devices: [ String ],
 
-	joined: Date
+	joined: {type: Date, default: Date.now()}
 };
 
 mongoose.model("User", schema);
