@@ -3,9 +3,15 @@ var mongoose = require("mongoose");
 var User = mongoose.model("User");
 
 module.exports = function(app){
+	/*
+		POST /signup
+
+		Body parameters:
+			- username: Facebook user ID of user being added.
+	*/
 	app.post("/signup", function(req, res){
 
-		if (!req.body.username || !req.body.token) {
+		if (!req.body.username) {
 			res.status(400).send({error: "Bad request"});
 			return;
 		}

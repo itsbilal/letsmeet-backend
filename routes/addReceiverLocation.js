@@ -5,6 +5,18 @@ var Meetup = mongoose.model("Meetup");
 
 var Notification = require("../helpers/notifications");
 
+/*
+  POST /meetup/:id/addLocation
+
+  Need to be authenticated
+
+  URL parameter: ":id" - ID of meeting (sent as meeting._id in the GCM MeetingInitiated notification)
+  Body parameters (application/x-www-form-urlencoded):
+  	- lat, lon: Latitude and longitude of your location
+
+  This API call is made by the recipient of the meetup, right after receiving the GCM MeetingInitiated notification.
+  Its sole job is to store the receiver's location *and* relay it to the sender again.
+*/
 module.exports = function(app) {
 	app.post("/meetup/:id/addLocation", function(req, res) {
 		if (!req.user.isAuthenticated) {

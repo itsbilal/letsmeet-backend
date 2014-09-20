@@ -3,6 +3,15 @@ var mongoose = require("mongoose");
 var User = mongoose.model("User");
 
 module.exports = function(app){
+
+	/*
+		POST /addDevice
+
+		Must be authenticated.
+
+		Body parameters:
+			- registrationId: GCM registration Id of device.
+	*/
 	app.post("/addDevice", function(req, res){
 
 		if (!req.user.isAuthenticated) {

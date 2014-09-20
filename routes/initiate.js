@@ -4,6 +4,18 @@ var User = mongoose.model("User");
 
 var Notification = require("../helpers/notifications");
 
+/*
+  POST: /initiate
+
+  Need to be authenticated (use the HTTP header "X-WWW-Authenticate: <userID on Facebook> <access token>"" to authenticate)
+
+  Body parameters (all urlencoded):
+  	- receiverId: Facebook ID of friend
+  	- lat, lon: Your location
+
+  This endpoint sends a notification to receiver (identified by receiverId),
+  and gets the receiver app to send its location back to the server (through the addReceiverLocation endpoint).
+*/
 module.exports = function(app) {
 	app.post("/initiate", function(req, res) {
 		if (!req.user.isAuthenticated) {
