@@ -1,0 +1,12 @@
+{
+  "name": "letsmeet",
+  "description": "Lets meet - backend",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.8.2",
+    "express": "4.x",
+    "mongoose": "^3.8.16",
+    "node-gcm": "^0.9.12"
+  }
+}
