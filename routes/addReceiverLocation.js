@@ -24,7 +24,7 @@ module.exports = function(app) {
 			return;
 		}
 
-		Meeting.findById(req.param.id, function(err, meeting){
+		Meetup.findById(req.param.id, function(err, meeting){
 			if (!meeting) {
 				res.status(404).send();
 				return;
@@ -41,9 +41,46 @@ module.exports = function(app) {
 				lon: req.body.lon
 			};
 
+			// Calculate midpoint
+			var list = [];
+
+			list.push(meeting.senderLocation);
+			list.push(meeting.receiverLocation);
+
+		    var size = list.length;
+		    var x = 0.0;
+		    var y = 0.0;
+		    var z = 0.0;
+
+		    list.forEach(function(item) {
+		        var lat = item.lat * (Math.PI / 180);
+		        var lon = item.lon * (Math.PI / 180);
+		        x += Math.cos(lat) + Math.cos(lon);
+		        y += Math.cos(lat) + Math.sin(lon);
+		        z += Math.sin(lat);
+		    });
+
+		    x /= size;
+		    y /= size;
+		    z /= size;
+
+		    lon = Math.atan2(y, x) * (180 / Math.PI);
+		    lat = Math.atan2(z, Math.sqrt(x * x + y * y)) * (180 / Math.PI);
+
+		    meeting.meetupLocation = {
+		    	lat: lat,
+		    	lon: lon
+		    };
+
 			meeting.save(function(err){
 				if (!err) {
-					res.send({success: 1});
+					res.send({
+						success: 1,
+						midpoint: {
+							lat: lat,
+							lon: lon
+						}
+					});
 
 					// Inform the sender
 					User.findOne({username: meeting.senderId}, function(err, sender){
