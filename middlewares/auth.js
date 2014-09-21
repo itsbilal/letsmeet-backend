@@ -28,8 +28,8 @@ module.exports = function(req, res, next) {
 		}
 
 		FB.setAccessToken(token);
-		FB.api("/me", 'get', {}, function(res){
-			if (!res || res.error) {
+		FB.api("/me", 'get', {}, function(response){
+			if (!response || response.error) {
 				// Incorrect auth token
 				res.status(401).send({error: "Incorrect access token"});
 				return;
