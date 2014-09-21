@@ -26,12 +26,16 @@ module.exports = function(app){
 
 		var registrationId = req.body.registrationId;
 
-		req.user.devices.push(registrationId);
-		req.user.save(function(err){
-			if (!err) {
-				res.send({success: 1});
-			}
-		});
+		if (req.user.devices.indexOf(registrationId) < 0) {
+			req.user.devices.push(registrationId);
+			req.user.save(function(err){
+				if (!err) {
+					res.send({success: 1});
+				}
+			});
+		} else {
+			res.send({success: 1});
+		}
 
 	});
 }
