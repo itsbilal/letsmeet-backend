@@ -40,10 +40,10 @@ module.exports = function(app) {
 				}
 			});
 
-			meetup.save(function(err){
+			meetup.save(function(err, newMeetup){
 				if (!err) {
 					Notification.sendToUser(friend, {type: "MeetupInitiated", meetup: JSON.stringify(meetup)});
-					res.send({success: 1});
+					res.send({success: 1, meetup: newMeetup});
 				}
 			});
 		});
