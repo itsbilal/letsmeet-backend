@@ -79,7 +79,8 @@ module.exports = function(app) {
 						midpoint: {
 							lat: lat,
 							lon: lon
-						}
+						},
+						meeting: meeting
 					});
 
 					// Inform the sender
@@ -89,7 +90,7 @@ module.exports = function(app) {
 							return;
 						}
 
-						Notification.sendToUser(sender, {type: "MeetupFulfilled", meeting: meeting});
+						Notification.sendToUser(sender, {type: "MeetupFulfilled", meeting: JSON.stringify(meeting)});
 					});
 				}
 			});

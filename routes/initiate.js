@@ -1,6 +1,7 @@
 
 var mongoose = require("mongoose");
 var User = mongoose.model("User");
+var Meetup = mongoose.model("Meetup");
 
 var Notification = require("../helpers/notifications");
 
@@ -41,7 +42,7 @@ module.exports = function(app) {
 
 			meetup.save(function(err){
 				if (!err) {
-					Notification.sendToUser(friend, {type: "MeetupInitiated", meetup: meetup});
+					Notification.sendToUser(friend, {type: "MeetupInitiated", meetup: JSON.stringify(meetup)});
 					res.send({success: 1});
 				}
 			});
